@@ -1,6 +1,6 @@
 # Using Think-Aloud Data to Understand SRL in ITS
 
-Supplementary repository for peer review of the manuscript "Using Think-Aloud Data to Understand Relations between Self-Regulation Cycle Characteristics and Student Performance in Intelligent Tutoring Systems" accepted as full paper to LAK '24.
+Supplementary repository of the manuscript "Using Think-Aloud Data to Understand Relations between Self-Regulation Cycle Characteristics and Student Performance in Intelligent Tutoring Systems" accepted as full paper to LAK '24.
 
 ## Citation
 
