@@ -10,8 +10,8 @@ Borchers, C., Zhang, J., Baker, R. S., & Aleven, V. (2023). Using Think-Aloud Da
   title={Using Think-Aloud Data to Understand Relations between Self-Regulation Cycle Characteristics and Student Performance in Intelligent Tutoring Systems},
   author={Borchers, Conrad and Zhang, Jiayi and Baker, Ryan S and Aleven, Vincent},
   booktitle={LAK24: 14th International Learning Analytics and Knowledge Conference},
-  doi={},
-  url={},
+  doi={10.1145/3636555.3636911},
+  url={https://doi.org/10.1145/3636555.3636911},
   year={2024}
 }
 ```
