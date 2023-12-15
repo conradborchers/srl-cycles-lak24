@@ -4,7 +4,7 @@ Supplementary repository of the manuscript "Using Think-Aloud Data to Understand
 
 ## Citation
 
-Borchers, C., Zhang, J., Baker, R. S., & Aleven, V. (2024). Using Think-Aloud Data to Understand Relations between Self-Regulation Cycle Characteristics and Student Performance in Intelligent Tutoring Systems. In *Proceedings of the 15th International Learning Analytics and Knowledge Conference* (LAK24). ACM. 
+Borchers, C., Zhang, J., Baker, R. S., & Aleven, V. (2024). Using Think-Aloud Data to Understand Relations between Self-Regulation Cycle Characteristics and Student Performance in Intelligent Tutoring Systems. In *Proceedings of the 14th International Learning Analytics and Knowledge Conference* (LAK24). ACM. 
 ```
 @inproceedings{borchers2024thinkaloud,
   title={Using Think-Aloud Data to Understand Relations between Self-Regulation Cycle Characteristics and Student Performance in Intelligent Tutoring Systems},
