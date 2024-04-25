@@ -1,3 +1,6 @@
 *.txt
 *.csv
 *.Rproj
+*.html
+.env
+!requirements.txt
