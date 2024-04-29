@@ -17,4 +17,4 @@ df_utterance = read.csv("transcripts-with-logdata-reference-lak24.csv")
 d_analysis <- aggregate_data(d_coded, d_tutor, df_utterance) %>%
   add_loop_variables()
 
-write_csv(d_analysis, 'd_analysis.csv') # for RQ3 analysis in Python
+write_csv(d_analysis, 'd_analysis.csv') # For analysis
