@@ -2,14 +2,14 @@
 
 error=0
 
-if find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'; then
+if [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'` ]]; then
     # The file has already been processed
     echo 'Transaction file already has its timestamp stripped, skipping...'
-elif find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+_[0-9_]+\.txt'; then
+elif [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+_[0-9_]+\.txt'` ]]; then
     # The file hasn't been processed yet
 
     ## Rename the transactional file to parse out the timestamp
-    rename -n 's/(ds\d+_tx_[A-Za-z_]+_\d+)_[0-9_]+\.txt/${1}\.txt/' *.txt
+    rename 's/(ds\d+_tx_[A-Za-z_]+_\d+)_[0-9_]+\.txt/${1}\.txt/' *.txt
     echo 'Renamed transactional file!'
 else
     echo 'Could not find transactional file.'
@@ -23,6 +23,7 @@ elif [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'` && -f './lak2
     # The setup script in R has not been ran yet
 
     ## Construct the dataset to run the other R scripts
+    echo 'Running setup R script, please wait a for a few minutes...'
     Rscript ./setup-lak24.R
     echo 'Constructed missing datasets!'
 else
@@ -34,5 +35,5 @@ if [ $error -ne 0 ]; then
     # Report error
     echo "Please follow the steps under 'Setup' in the README to get started. Then run this script again."
 else
-    echo "Setup successfully finished!"
+    echo "Setup successfully finished! You can now run 'main-lak24.R' and 'rq3-analysis.ipynb'."
 fi
