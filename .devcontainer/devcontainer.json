@@ -1,10 +1,11 @@
 {
     "name": "Dev Environment",
-    "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+    // Use R as the base package
+    "image": "ghcr.io/rocker-org/devcontainer/r-ver:4.2",
     "features": {
-        // Install R
+        // Setup debugger
         "ghcr.io/rocker-org/devcontainer-features/r-rig:1": {
-            "version": "4.2.0",
+            "version": "none",
             "installVscDebugger": true
         },
         // Handle caching of installed R packages
