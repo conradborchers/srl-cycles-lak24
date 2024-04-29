@@ -23,7 +23,7 @@ elif [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'` && -f './lak2
     # The setup script in R has not been ran yet
 
     ## Construct the dataset to run the other R scripts
-    echo 'Running setup R script, please wait a for a few minutes...'
+    echo 'Running setup R script, please wait for a few minutes...'
     Rscript ./setup-lak24.R
     echo 'Constructed missing datasets!'
 else
