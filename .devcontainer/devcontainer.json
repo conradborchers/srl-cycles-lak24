@@ -21,6 +21,10 @@
             "installJupyterlab": true
         } 
     },
+    "containerEnv": {
+        // Set autoloading in dev environment to true
+        "AUTOLOAD_RENV_DEVENV": "TRUE"
+    },
 
     "postCreateCommand": {
         // Install python packages and nltk resources
