@@ -100,11 +100,7 @@ To run the code locally, you will need the following:
 - [Jupyter Notebook Viewer](https://jupyter.org/)
     - Visual Studio Code and other plugin-based software will also work
 
-> Note: If you are on Linux and would like to use the `setup.sh` script, you must make sure you have the `rename` package installed and `Rscript` on the PATH.
-> ```bash
-> # e.g. For debian users
-> sudo apt-get update && sudo apt-get install -y --no-install-recommends rename
-> ```
+> Note: If you are on Unix and would like to use the `setup.sh` script, you must make sure you have `Rscript` on the PATH.
 
 1. Install the python requirements from `requirements.txt` to your global Python instance or [virtual environment (recommended)](https://docs.python.org/3/library/venv.html#creating-virtual-environments) via:
 ```bash
@@ -116,27 +112,79 @@ python3 -m pip install -r requirements.txt
 # or py on Windows
 python3 -m nltk.downloader stopwords
 ```
-3. Open `R` and wait for `renv` to install itself. It should do so using the `.Rprofile` file. If not, run the following in the R terminal:
+3. Use one of the below options to get the necessary packages:
+
+#### Option 1: renv
+
+To use `renv` with `R`, open the `.properties` file and set `AUTOLOAD_RENV` to `TRUE`:
+
+```properties
+AUTOLOAD_RENV=TRUE
+```
+
+Then, open `R` and wait for `renv` and the required dependencies to install themselves. It should do so using the `.Rprofile`. If not, run the folowing in the R terminal:
+
 ```R
 install.packages("renv")
 ```
-4. Once `renv` is installed, install the dependencies using the following command. If this step fails, follow the error message to install any missing packages before running the command again:
+
+Then once `renv` is installed, install the dependencies via:
+
 ```R
 renv::restore(prompt = FALSE)
 ```
-5. Rename the transaction file `ds5371_tx_All_Data_7671_<timestamp>.txt` to `ds5371_tx_All_Data_7671.txt`.
-6. Run the `setup-lak24.R` script either through the terminal or in R:
+
+#### Option 2: Try already installed packages
+
+If you want to use the already installed packages on your machine, move onto the below steps. There is no guarantee your packages will work due to version differences, but it is generally more stable than running `renv` if you already have packages installed globally.
+
+Here are the packages directly referenced in the codebase:
+
+- tidyverse
+- lme4
+- languageserver
+- janitor
+- zoo
+- sjPlot
+- car
+
+4. Perform one of the following options based on your setup:
+
+#### Option 1: Unix (macOS, Linux, Windows Subsystem Linux (WSL))
+
+Run the `setup.sh` script in your shell terminal. The script is written in `bash`, so make sure your terminal environment supports it
+
 ```bash
+./setup.sh
+```
+
+If a permission failed error occurs, run the following command first:
+
+```bash
+chmod +x ./setup.sh
+```
+
+If the output says, `Setup successfully finished! You can now run...`, then you can open and run `main-lak24.R` and `rq3-analysis.ipynb`. Otherwise, make sure you have the files in the root directory.
+
+#### Option 2: Windows PowerShell/CMD or Non-Script setup
+
+Rename the transaction file `ds5371_tx_All_Data_7671_<timestamp>.txt` to `ds5371_tx_All_Data_7671.txt`.
+
+Then, run the `setup-lak24.R` script either through the terminal or in `R`. Most likely, if you don't have `R` on the path, use the second option.
+
+```pwsh
 Rscript ./setup-lak24.R
 ```
+
 ```R
 source("./setup-lak24.R")
 ```
-7. Run `main-lak24.R` using your R environment.
-8. Run `rq3-analysis.ipynb` using your Jupyter environment.
+
+5. Run `main-lak24.R` using your R environment.
+6. Run `rq3-analysis.ipynb` using your Jupyter environment.
 
 ## FAQ
 
 - `renv` won't download the libraries with a weird error "cannot edit staging" / R won't load tidyverse due to a missing file link
 
-If you have installed everything correctly, this means that you still have some cache data from a previous R version that is interfering. You can clear this out but deleting `./renv/library`, `./renv/staging`, and the location of [`$RENV_PATHS_CACHE`](https://rstudio.github.io/renv/reference/paths.html). Then, run `renv::restore()` again.
+If you have installed everything correctly, this means that you have some libraries from a different R minor version that is interfering. You can fix this by deleting `./renv/library`, `./renv/staging`, and the location of [`$RENV_PATHS_CACHE`](https://rstudio.github.io/renv/reference/paths.html). Then, run `renv::restore()` again. If that doesn't work, try uninstalling and reinstalling all packages.
