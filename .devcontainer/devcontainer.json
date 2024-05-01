@@ -23,8 +23,6 @@
     },
 
     "postCreateCommand": {
-        // Install rename
-        "install-packages": "sudo apt-get update && sudo apt-get install -y --no-install-recommends rename",
         // Install python packages and nltk resources
         "install-python-requirements": "python3 -m pip install -r ${containerWorkspaceFolder}/requirements.txt && python3 -m nltk.downloader stopwords"
     },

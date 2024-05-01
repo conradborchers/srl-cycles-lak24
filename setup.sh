@@ -9,7 +9,10 @@ elif [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+_[0-9_]+\.txt'` ]]; t
     # The file hasn't been processed yet
 
     ## Rename the transactional file to parse out the timestamp
-    rename 's/(ds\d+_tx_[A-Za-z_]+_\d+)_[0-9_]+\.txt/${1}\.txt/' *.txt
+    ## Retains directory information
+    for file in ds*.txt; do
+        mv $file `printf "$file" | sed 's/\(\(.*\/\)\?ds[0-9]\+_tx_[A-Za-z_]\+_[0-9]\+\)_[0-9_]\+\.txt/\1\.txt/'`
+    done
     echo 'Renamed transactional file!'
 else
     echo 'Could not find transactional file.'
