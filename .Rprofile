@@ -2,9 +2,9 @@
 readRenviron(".properties")
 
 # If the autoload property is set, activate renv
-if (Sys.getenv("AUTOLOAD_RENV_DEVENV")) {
+if (Sys.getenv("AUTOLOAD_RENV_DEVENV", unset = "FALSE")) {
     source("renv/activate.R")
-} else if (Sys.getenv("AUTOLOAD_RENV")) {
+} else if (Sys.getenv("AUTOLOAD_RENV", unset = "FALSE")) {
     source("renv/activate.R")
     renv::restore(prompt = FALSE)
 } else {
