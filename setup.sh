@@ -2,16 +2,29 @@
 
 error=0
 
-if [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'` ]]; then
+# Handle extra parmeters necessary for other operating systems
+extraParams=''
+
+unameSystem=`uname -s`
+case "$unameSystem" in
+    Darwin*)
+        # Use -E here to allow all extended regex support on macOS
+        extraParams='-E'
+        ;;
+    *)
+        ;;
+esac
+
+if [[ -n `eval "find $extraParams . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'"` ]]; then
     # The file has already been processed
     echo 'Transaction file already has its timestamp stripped, skipping...'
-elif [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+_[0-9_]+\.txt'` ]]; then
+elif [[ -n `eval "find $extraParams . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+_[0-9_]+\.txt'"` ]]; then
     # The file hasn't been processed yet
 
     ## Rename the transactional file to parse out the timestamp
     ## Retains directory information
     for file in ds*.txt; do
-        mv $file `printf "$file" | sed 's/\(\(.*\/\)\?ds[0-9]\+_tx_[A-Za-z_]\+_[0-9]\+\)_[0-9_]\+\.txt/\1\.txt/'`
+        mv $file `printf "$file" | eval "sed $extraParams 's/\(\(.*\/\)\?ds[0-9]\+_tx_[A-Za-z_]\+_[0-9]\+\)_[0-9_]\+\.txt/\1\.txt/'"`
     done
     echo 'Renamed transactional file!'
 else
@@ -22,7 +35,7 @@ fi
 if [[ -f './d_analysis.csv' ]]; then
     # The setup script in R has already been ran
     echo 'Setup script already run, skipping...'
-elif [[ -n `find . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'` && -f './lak24-coded-utterances.csv' && -f './transcripts-with-logdata-reference-lak24.csv' ]]; then
+elif [[ -n `eval "find $extraParams . -regex '\./ds[0-9]+_tx_[A-Za-z_]+_[0-9]+\.txt'"` && -f './lak24-coded-utterances.csv' && -f './transcripts-with-logdata-reference-lak24.csv' ]]; then
     # The setup script in R has not been ran yet
 
     ## Construct the dataset to run the other R scripts
