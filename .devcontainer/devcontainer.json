@@ -1,0 +1,51 @@
+{
+    "name": "Dev Environment",
+    // Use R as the base package
+    "image": "ghcr.io/rocker-org/devcontainer/r-ver:4.2",
+    "features": {
+        // Setup debugger
+        "ghcr.io/rocker-org/devcontainer-features/r-rig:1": {
+            "version": "none",
+            "installVscDebugger": true
+        },
+        // Handle caching of installed R packages
+        // **If new environment is set up, the local renv modules MUST be cleared**
+        "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {},
+        "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
+            // Only install renv as the other packages will be snapshotted
+            "packages": "github::rstudio/renv@v1.0.7"
+        },
+        // Install python
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.9.5",
+            "installJupyterlab": true
+        } 
+    },
+    "containerEnv": {
+        // Set autoloading in dev environment to true
+        "AUTOLOAD_RENV_DEVENV": "TRUE"
+    },
+
+    "postCreateCommand": {
+        // Install python packages and nltk resources
+        "install-python-requirements": "python3 -m pip install -r ${containerWorkspaceFolder}/requirements.txt && python3 -m nltk.downloader stopwords"
+    },
+    "postStartCommand": {
+        // Initialize renv environment and setup environment
+        "setup": "R -e \"renv::restore(prompt = FALSE)\" && ./setup.sh"
+    },
+
+    // Remote UID will match container UID
+    "updateRemoteUserUID": true,
+
+    "customizations": {
+        // VSCode extensions
+        "vscode": {
+            "extensions": [
+                "ms-toolsai.jupyter",
+                "mechatroner.rainbow-csv",
+                "george-alisson.html-preview-vscode"
+            ]
+        }
+    }
+}
